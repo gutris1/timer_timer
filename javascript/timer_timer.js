@@ -4,14 +4,13 @@ function updateTimer(el, endTime) {
     const a = (i) => (i < 10 ? "0" + i : i);
     const b = (x) => Math.floor(x);
     let c = endTime - b(Date.now() / 1000);
-    h = a(b(c / 3600));
-    m = a(b((c / 60) % 60));
+    m = a(b(c / 60));
     s = a(b(c % 60));
 
-    el.innerText = h + ":" + m + ":" + s;
+    el.innerText = m + ":" + s;
 
     if (c <= 0) {
-        el.innerText = "00:00:00";
+        el.innerText = "00:00";
         return;
     }
 
@@ -29,7 +28,7 @@ refreshTimer = (timerEL, notext = false) => {
         timeout = null;
     }
     if (!notext) timerEL.innerText = "Connecting...";
-    fetch("file=static/colabTimer.txt", { cache: "no-store" })
+    fetch("file=asd/pinggytimer.txt", { cache: "no-store" })
         .then((response) => {
             if (response.status == 404) {
                 timerEL.innerText = "Disconnected";
@@ -57,9 +56,9 @@ onUiLoaded(function () {
     mainEL.id = "nocrypt-timer";
     mainEL.className = "justify-start";
     mainEL.style = `
-        gap: 10px;
+        gap: 5px;
         user-select: none;
-        margin-block: -10px;
+        margin-block: -15px;
         transform-origin: left center;
         scale: 0.8;
         display: flex;
@@ -69,10 +68,9 @@ onUiLoaded(function () {
     buttonEL.className = "gr-box";
     buttonEL.style = `
         gap: 0.5rem; 
-        border-radius: 10px; 
         display: flex; 
         align-items: center; 
-        border-width: 1px; 
+        border-color: transparent;
         cursor: pointer; 
         padding-block: 3px; 
         width: fit-content; 
@@ -84,18 +82,20 @@ onUiLoaded(function () {
 
     let timerEL = document.createElement("div");
     timerEL.style = `
-        font-family: monospace;
+        font-family: 'Roboto Mono', monospace;
         font-size: 18px;
+        color: orange;
     `;
     timerEL.innerText = "Connecting...";
 
     let tunnelEL = document.createElement("div");
     tunnelEL.innerText = "pinggy";
     tunnelEL.style = `
+        font-family: 'Roboto Mono', monospace;
         font-size: 18px;
         font-weight: bold;
         text-align: center;
-        margin-top: -8px;
+        margin-top: -5px;
         display: flex;
     `;
 
